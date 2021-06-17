@@ -2,24 +2,36 @@ function getMaxSubSum(arr) {
     let max = 0;
     let part = 0;
     
-    for (let elem of arr) {
-        if (elem > 0) {
-            max += elem;
-        } else {
-            if (part < max) {
-                part = max;
-            }
-            max = 0;
+    for (let i = 0; i < arr.length + 1; i++) {
+        
+        part += arr[i]; // добавляем значение
+        
+        if (max < part) {
+            max = part; // запоминаем максимум на текущий момент
         }
+
+        if (arr[i] < 0) {
+            part = 0;
+        }        
     }
+    return max;
 
-    if (max > part)
-        return max;
-    else
-        return part;
+    /* метод из задания
+       function getMaxSubSum(arr) {
+         let maxSum = 0;
+         let partialSum = 0;
 
-    /*
-     * попытка сделать рекурсивным методом
+         for (let item of arr) { // для каждого элемента массива
+           partialSum += item; // добавляем значение элемента к partialSum
+           maxSum = Math.max(maxSum, partialSum); // запоминаем максимум на данный момент
+           if (partialSum < 0) partialSum = 0; // ноль если отрицательное
+         }
+
+         return maxSum;
+       }
+     */
+
+    /* попытка сделать рекурсивным методом
     let value = arr.pop();
     if (!value) {
         return 0;
