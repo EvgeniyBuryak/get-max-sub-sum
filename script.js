@@ -1,30 +1,38 @@
-function getMaxSubSum(arr) {
+function getMaxSubSum(arr) {    
+    let max = 0;
+    let part = 0;
+    
+    for (let elem of arr) {
+        if (elem > 0) {
+            max += elem;
+        } else {
+            if (part < max) {
+                part = max;
+            }
+            max = 0;
+        }
+    }
 
+    if (max > part)
+        return max;
+    else
+        return part;
 
+    /*
+     * попытка сделать рекурсивным методом
     let value = arr.pop();
-
     if (!value) {
         return 0;
     }
     else if (value > 0) {
         let num = getMaxSubSum(arr);
-        if (num <= 0) {
-            num = -num;
-
-            return value;
-        } else {
-            return num + value; 
-        }
-
-        //let num = getMaxSubSum(arr);
-        //num = (num <= value) ? -((-num) + value) : num + value;
-        //return (num > value) ? num : value;
+        num = (num <= value) ? -((-num) + value) : num + value;
+        return (num > value) ? num : value;
         //return -getMaxSubSum(arr) + value;
     }
     else {
-
         return -getMaxSubSum(arr);
-    }
+    }*/
 }
 
 console.log(getMaxSubSum([-1, 2, 3, -9]));// = 5 (сумма выделенных)
